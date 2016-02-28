@@ -1,0 +1,108 @@
+---
+title       : Prediction Algorithm Tester
+subtitle    : Presentation of Data Products Course Project
+author      : Dominique Loete
+job         : Data Science specialization student
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [quiz, bootstrap]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction
+
+
+* The app for testing various prediction algorithms.
+    **Lots** of options and **tweaking** available!
+
+* Wine dataset from MIT OpenCourseWare website ([Dataset](http://ocw.mit.edu/courses/sloan-school-of-management/15-097-prediction-machine-learning-and-statistics-spring-2012/datasets/wine.csv) : [Description about dataset](http://ocw.mit.edu/courses/sloan-school-of-management/15-097-prediction-machine-learning-and-statistics-spring-2012/datasets/wine_info.txt))
+    + Header of the dataset:
+    
+```{r, echo=FALSE, results = 'markup'}
+require(data.table)
+wine_url <- "http://ocw.mit.edu/courses/sloan-school-of-management/15-097-prediction-machine-learning-and-statistics-spring-2012/datasets/wine.csv"
+dataWine <- "./data/wine.csv"
+if (!file.exists("./data")) {
+    dir.create("./data")
+}
+if (!file.exists(dataWine)) {
+    download.file(wine_url, destfile=dataWine)
+}
+raw_data <- read.csv(dataWine)
+
+attributes <- c("Class", "Alcohol", "Malic acid", "Ash", "Alcalinity of ash", "Magnesium", "Total phenols", "Flavanoids",
+                "Nonflavanoid phenols", "Proanthocyanins", "Color intensity", "Hue", "OD280/OD315 of diluted wines", "Proline")
+names(raw_data) <- attributes
+raw_data$Class <- as.factor(raw_data$Class)
+raw_data[,6] = as.numeric(as.character(raw_data[,6]))
+raw_data[,14] = as.numeric(as.character(raw_data[,14]))
+
+data_table = as.data.table(raw_data)
+head(data_table, 3)
+```  
+
+--- .class #id 
+
+## Features
+
+**Multiple** algorithms
+* RDA
+* SDA
+* GBM
+* RF
+
+  
+Several **resampling** methods
+* Cross-Validation
+* Bootstrap
+* Repeated Cross-Validation
+* Adaptive Bootstrap
+  
+ 
+**And more...**
+
+---
+
+## Instructions
+
+All the info about the dataset is on the ***Data***-tab.
+
+On the second tab ***Algorithm*** you can choice your prediction parameters.
+
+When you are happy with the choices: Press the ***Calculate***-button.
+
+A message will be visible topright while the app is doing his calculations.
+
+It will then update the last tab ***Prediction Outcomes***.
+
+Feel free to click around while it is calculating. This will not influence the calculation.
+
+
+--- &radio
+
+## Quiz
+
+What is the best algorithm? (For this *wine*-dataset)
+
+1. RF
+2. GBM
+3. _RDA_
+4. SDA
+
+***.hint
+
+This time it seems the heaviest is the most accurate...
+
+***.explanation
+
+The dataset is quite small and very well defined. None of the algorithms have a problem with it. But SDA is clearly the least capable of the 4.
+
+
+
+***
+
+
+Go find out in my ***Prediction Algorithm Tester*** app...!
+
